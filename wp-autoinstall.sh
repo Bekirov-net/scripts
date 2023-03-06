@@ -1,6 +1,4 @@
 #!/bin/sh
-#wordpress + nginx auto install
-
 sudo apt update
 sudo apt install nginx -y
 sudo systemctl start nginx
@@ -9,10 +7,10 @@ sudo apt install php-fpm php-common php-mysql php-gmp php-curl php-intl php-mbst
 wget https://wordpress.org/latest.tar.gz
 tar -xvzf latest.tar.gz
 sudo rm -rf /var/www/html/*
-sudo mv wordpress /var/www/html
+sudo mv wordpress/* /var/www/html
 sudo chown -R www-data:www-data /var/www/html/
 sudo chmod -R 755 /var/www/html/
-sudo echo '
+sudo echo '		
 server {
     listen 80;
     listen [::]:80;
@@ -35,4 +33,5 @@ server {
 }
 ' > /tmp/default
 sudo mv /tmp/default /etc/nginx/sites-available/default
+sudo chmod -R 755 /etc/nginx/sites-available/default
 sudo systemctl restart nginx
